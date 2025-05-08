@@ -1,98 +1,124 @@
-import { NavigationHeader } from '@/components/header';
-import ThemeToggleButton from '@/components/mode-toggle';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
+import HeroSlider from '@/components/sliders/hero-slider';
+import ProjectsSlider from '@/components/sliders/projects-slider';
+import ServicesSlider from '@/components/sliders/services-slider';
+import GuestLayout from '@/layouts/guest-layout';
+
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { LogOut, Settings, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
-export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
-    const cleanup = useMobileNavigation();
+interface HeroSlides {
+    id: number;
+    title: string;
+    image: string;
+}
+
+interface Service {
+    id: number;
+    name: string;
+    image: string;
+}
+
+interface Project {
+    id: number;
+    name: string;
+    image: string;
+    github_link: string;
+}
+
+interface Props {
+    heroSlides: HeroSlides[];
+    projects: Project[];
+    services: Service[];
+}
+
+interface Flash {
+    success?: string;
+    danger?: string;
+}
+
+export default function Welcome({ services, projects, heroSlides }: Props) {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { flash } = usePage<{ flash: Flash }>().props;
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        if (flash.success) {
+            toast.success(flash.success);
+        }
+    }, [flash.success]);
 
     return (
         <>
-            <div className="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a] dark:text-[#FDFDFC]">
-                <header className="border-b-accent mb-6 w-full max-w-[335px] border-b pb-5 text-sm not-has-[nav]:hidden lg:max-w-4xl">
-                    <nav className="flex items-center justify-between">
-                        <NavigationHeader />
-                        <div className="flex gap-4">
-                            <ThemeToggleButton />
-                            {auth.user ? (
-                                <>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Avatar>
-                                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                                                <AvatarFallback>CN</AvatarFallback>
-                                            </Avatar>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent className="w-56">
-                                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuGroup>
-                                                <DropdownMenuItem className="flex">
-                                                    {' '}
-                                                    <User className="mr-2" />
-                                                    Profile
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem className="flex">
-                                                    {' '}
-                                                    <Settings className="mr-2" />
-                                                    Settings
-                                                </DropdownMenuItem>
-                                            </DropdownMenuGroup>
-                                            <DropdownMenuSeparator />
-
-                                            <DropdownMenuItem>
-                                                <Link className="flex" method="post" href={route('logout')} as="button" onClick={cleanup}>
-                                                    <LogOut className="mr-2" />
-                                                    Log out
-                                                </Link>
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-
-                                    <Link
-                                        href={route('dashboard')}
-                                        className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                </>
-                            ) : (
-                                <>
-                                    <Link
-                                        href={route('login')}
-                                        className="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
-                                    >
-                                        Log in
-                                    </Link>
-                                    <Link
-                                        href={route('register')}
-                                        className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                                    >
-                                        Register
-                                    </Link>
-                                </>
-                            )}
+            <GuestLayout>
+                <main className="w-full">
+                    <section className={`flex w-full flex-col p-5 xl:flex-row ${isScrolled ? `mt-32` : ''}`}>
+                        {/* Text Content */}
+                        <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/2 xl:items-start xl:text-left">
+                            <h1 className="mb-4 text-4xl font-bold md:text-5xl">
+                                Empower Your Business with <code className="text-blue-500">Innovation</code>
+                            </h1>
+                            <p className="mb-6 text-lg">We deliver cutting-edge software solutions tailored to your growth.</p>
+                            <Link
+                                href="/contact-us"
+                                className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"
+                            >
+                                Contact Us
+                            </Link>
                         </div>
-                    </nav>
-                </header>
-                <div className="flex w-full opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0">
-                    <main className="flex w-full max-w-[335px] flex-col-reverse lg:max-w-4xl lg:flex-row"></main>
-                </div>
-                <div className="hidden h-14.5 lg:block"></div>
-            </div>
+
+                        {/* HeroSlider */}
+                        <div className="border-accent mx-auto mt-8 w-full max-w-2xl rounded-2xl border p-5 xl:mt-0 xl:ml-10 xl:w-1/2">
+                            <HeroSlider heroSlides={heroSlides} />
+                        </div>
+                    </section>
+
+                    <div className="border-accent my-5 border"></div>
+
+                    <section className="projects flex w-full flex-col p-5 xl:flex-row">
+                        <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/3 xl:items-start xl:text-left">
+                            <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">Projects</h1>
+                            <p className="mb-6 text-center text-lg">Contribute to our open-source projects</p>
+                            <a
+                                href="#contact"
+                                className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"
+                            >
+                                Show More
+                            </a>
+                        </div>
+                        <div className="border-accent mx-auto mt-8 w-full max-w-3xl rounded-2xl border p-5 xl:mt-0 xl:ml-10 xl:w-2/3">
+                            <ProjectsSlider projects={projects} />
+                        </div>
+                    </section>
+
+                    <div className="border-accent my-5 border"></div>
+
+                    <section className="services flex w-full flex-col p-5 xl:flex-row">
+                        <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/3 xl:items-start xl:text-left">
+                            <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">Services</h1>
+                            <p className="mb-6 text-center text-lg">Do not hasitate to require our services</p>
+                            <a
+                                href="#contact"
+                                className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"
+                            >
+                                Show More
+                            </a>
+                        </div>
+                        <div className="border-accent mx-auto mt-8 w-full max-w-3xl rounded-2xl border p-5 xl:mt-0 xl:ml-10 xl:w-2/3">
+                            <ServicesSlider services={services} />
+                        </div>
+                    </section>
+                </main>
+            </GuestLayout>
         </>
     );
 }

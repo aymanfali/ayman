@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class);
     }
+
+    public function heroSlider()
+    {
+        return $this->hasMany(Heroslider::class);
+    }
 }

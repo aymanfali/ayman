@@ -1,0 +1,22 @@
+.slick-dots {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%);
+    display: flex;
+    width: fit-content !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+    .slick-dots {
+        display: none !important;
+    }
+}

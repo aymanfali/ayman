@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Settings, Group, ServerCogIcon, ProjectorIcon, HomeIcon } from 'lucide-react';
+import { Settings, Group, ServerCogIcon, ProjectorIcon, HomeIcon, SlidersIcon, Contact2 } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -12,6 +12,11 @@ const mainNavItems: NavItem[] = [
         title: 'Home',
         url: '/dashboard',
         icon: HomeIcon,
+    },
+    {
+        title: 'Hero Slider',
+        url: '/dashboard/hero-slider',
+        icon: SlidersIcon,
     },
     {
         title: 'Categories',
@@ -27,6 +32,11 @@ const mainNavItems: NavItem[] = [
         title: 'Services',
         url: '/dashboard/services',
         icon: ServerCogIcon,
+    },
+    {
+        title: 'Contacts',
+        url: '/dashboard/contacts',
+        icon: Contact2,
     },
 ];
 

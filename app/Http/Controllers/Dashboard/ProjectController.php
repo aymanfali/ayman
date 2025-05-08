@@ -100,7 +100,7 @@ class ProjectController extends Controller
             'files' => 'nullable|array',
             'files.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        dd($data);
+        // dd($data);
 
         $data['slug'] = $this->generateUniqueSlug($data['name']);
         $data['image'] = $project->image;
