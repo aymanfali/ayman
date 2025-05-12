@@ -14,7 +14,7 @@ class ServicesController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('welcome', [
+        return Inertia::render('services/index', [
             'services' => Service::all()
         ]);
     }

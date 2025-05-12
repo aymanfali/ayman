@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import '../../../css/slider-pagination.css';
 import { Button } from '../ui/button';
-import { Link } from '@inertiajs/react';
 
 interface Project {
     id: number;

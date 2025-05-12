@@ -14,7 +14,7 @@ class ProjectsController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('/welcome', [
+        return Inertia::render('projects/index', [
             'projects' => Project::all()
         ]);
     }

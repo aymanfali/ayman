@@ -3,7 +3,6 @@ import ProjectsSlider from '@/components/sliders/projects-slider';
 import ServicesSlider from '@/components/sliders/services-slider';
 import GuestLayout from '@/layouts/guest-layout';
 
-import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -105,7 +104,7 @@ export default function Welcome({ services, projects, heroSlides }: Props) {
                     <section className="services flex w-full flex-col p-5 xl:flex-row">
                         <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/3 xl:items-start xl:text-left">
                             <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">Services</h1>
-                            <p className="mb-6 text-center text-lg">Do not hasitate to require our services</p>
+                            <p className="mb-6 text-center text-lg">Do not hesitate to require our services</p>
                             <a
                                 href="#contact"
                                 className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"

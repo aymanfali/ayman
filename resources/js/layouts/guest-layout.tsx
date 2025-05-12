@@ -34,7 +34,7 @@ export default function GuestLayout({ children }: AppLayoutProps) {
                 >
                     <Header auth={auth} />
                 </header>
-                <div className="w-full justify-center opacity-100 transition-opacity duration-700 lg:grow starting:opacity-0">{children}</div>
+                <div className="w-full justify-center p-5 opacity-100 transition-opacity duration-700 lg:grow starting:opacity-0">{children}</div>
                 <Toaster position="top-right" richColors />
                 <Footer />
             </div>
