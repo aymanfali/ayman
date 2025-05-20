@@ -4,6 +4,7 @@ import ServicesSlider from '@/components/sliders/services-slider';
 import GuestLayout from '@/layouts/guest-layout';
 
 import { Link, usePage } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -40,6 +41,7 @@ interface Flash {
 export default function Welcome({ services, projects, heroSlides }: Props) {
     const [isScrolled, setIsScrolled] = useState(false);
     const { flash } = usePage<{ flash: Flash }>().props;
+    const { t } = useLaravelReactI18n();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -62,21 +64,21 @@ export default function Welcome({ services, projects, heroSlides }: Props) {
                 <main className="w-full">
                     <section className={`flex w-full flex-col p-5 xl:flex-row ${isScrolled ? `mt-32` : ''}`}>
                         {/* Text Content */}
-                        <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/2 xl:items-start xl:text-left">
+                        <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/2 xl:items-start xl:text-start">
                             <h1 className="mb-4 text-4xl font-bold md:text-5xl">
-                                Empower Your Business with <code className="text-blue-500">Innovation</code>
+                                {t('home.hero_text')} <code className="text-blue-500">{t('home.highlighted_hero_word')}</code>
                             </h1>
-                            <p className="mb-6 text-lg">We deliver cutting-edge software solutions tailored to your growth.</p>
+                            <p className="mb-6 text-lg">{t('home.hero_sub_text')}.</p>
                             <Link
                                 href="/contact-us"
                                 className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"
                             >
-                                Contact Us
+                                {t('home.contact_us')}
                             </Link>
                         </div>
 
                         {/* HeroSlider */}
-                        <div className="border-accent mx-auto mt-8 w-full max-w-2xl rounded-2xl border p-5 xl:mt-0 xl:ml-10 xl:w-1/2">
+                        <div className="border-accent mx-auto mt-8 w-full max-w-2xl rounded-2xl border p-5 xl:me-10 xl:mt-0 xl:w-1/2">
                             <HeroSlider heroSlides={heroSlides} />
                         </div>
                     </section>
@@ -85,14 +87,14 @@ export default function Welcome({ services, projects, heroSlides }: Props) {
 
                     <section className="projects flex w-full flex-col p-5 xl:flex-row">
                         <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/3 xl:items-start xl:text-left">
-                            <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">Projects</h1>
-                            <p className="mb-6 text-center text-lg">Contribute to our open-source projects</p>
-                            <a
-                                href="#contact"
+                            <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">{t('home.projects')}</h1>
+                            <p className="mb-6 text-center text-lg">{t('home.projects_sub_text')}</p>
+                            <Link
+                                href="/projects"
                                 className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"
                             >
-                                Show More
-                            </a>
+                                {t('home.show_more')}
+                            </Link>
                         </div>
                         <div className="border-accent mx-auto mt-8 w-full max-w-3xl rounded-2xl border p-5 xl:mt-0 xl:ml-10 xl:w-2/3">
                             <ProjectsSlider projects={projects} />
@@ -103,14 +105,14 @@ export default function Welcome({ services, projects, heroSlides }: Props) {
 
                     <section className="services flex w-full flex-col p-5 xl:flex-row">
                         <div className="flex w-full flex-col items-center justify-center text-center xl:w-1/3 xl:items-start xl:text-left">
-                            <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">Services</h1>
-                            <p className="mb-6 text-center text-lg">Do not hesitate to require our services</p>
-                            <a
-                                href="#contact"
+                            <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">{t('home.services')}</h1>
+                            <p className="mb-6 text-center text-lg">{t('home.services_sub_text')}</p>
+                            <Link
+                                href="/services"
                                 className="border-accent hover:bg-accent focus:ring-accent m-3 inline-block rounded-2xl border px-6 py-3 text-lg transition focus:ring-2 focus:outline-none"
                             >
-                                Show More
-                            </a>
+                                {t('home.show_more')}
+                            </Link>
                         </div>
                         <div className="border-accent mx-auto mt-8 w-full max-w-3xl rounded-2xl border p-5 xl:mt-0 xl:ml-10 xl:w-2/3">
                             <ServicesSlider services={services} />

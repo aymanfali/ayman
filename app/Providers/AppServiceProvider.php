@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
+use App\Helpers\TranslationHelper;
 use App\Models\Project;
 use App\Models\Service;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Inertia\Inertia;
-use Illuminate\Http\Request; // ✅ Correct
 
 
 class AppServiceProvider extends ServiceProvider
@@ -67,12 +67,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Inertia::share([
-            'projects' => function () {
-                return Project::latest()->take(5)->get(); // or whatever logic you need
-            },
-            'services' => function () {
-                return Service::latest()->take(5)->get(); // or whatever logic you need
-            }
+            'projects' => fn() => Project::latest()->take(5)->get(),
+            'services' => fn() => Service::latest()->take(5)->get(),
+            'locale' => fn() => app()->getLocale(),
         ]);
     }
 }

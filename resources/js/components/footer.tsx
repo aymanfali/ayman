@@ -1,9 +1,11 @@
 import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 const Footer = () => {
     const [visible, setVisible] = useState(false);
+    const { t } = useLaravelReactI18n();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -18,7 +20,7 @@ const Footer = () => {
     };
     return (
         <>
-            <div className="w-full border-accent my-5 border"></div>
+            <div className="border-accent my-5 w-full border"></div>
 
             <footer className="w-full px-4">
                 {/* Scroll To Top Button */}
@@ -37,32 +39,32 @@ const Footer = () => {
                 <div className="mx-auto flex flex-col items-center space-y-6 sm:justify-between sm:space-y-0">
                     <div className="items-center space-x-4 min-md:flex">
                         <div className="border-accent rounded-2xl border p-2">
-                            <img src="ayman.png" width={80} alt="Ayman Logo" />
+                            <img src="/ayman.png" width={80} alt="Ayman Logo" />
                         </div>
                     </div>
 
-                    <h3 className="text-lg font-semibold">Know and contact us on</h3>
+                    <h3 className="text-lg font-semibold">{t('layout.know_us')}</h3>
 
                     {/* Social Icons */}
                     <div className="m-3 flex flex-wrap justify-center gap-4">
                         <a
                             href="#"
                             aria-label="Email"
-                            className="rounded-2xl p-3 hover:bg-white hover:text-black dark:hover:bg-white dark:hover:text-black"
+                            className="rounded-2xl p-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                         >
                             <Mail size={20} />
                         </a>
                         <a
                             href="#"
                             aria-label="LinkedIn"
-                            className="rounded-2xl p-3 hover:bg-white hover:text-black dark:hover:bg-white dark:hover:text-black"
+                            className="rounded-2xl p-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                         >
                             <Linkedin size={20} />
                         </a>
                         <a
                             href="#"
                             aria-label="GitHub"
-                            className="rounded-2xl p-3 hover:bg-white hover:text-black dark:hover:bg-white dark:hover:text-black"
+                            className="rounded-2xl p-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                         >
                             <Github size={20} />
                         </a>
@@ -73,9 +75,9 @@ const Footer = () => {
                 <div className="border-accent mx-auto my-10 w-20 border-t"></div>
 
                 {/* Navigation Columns */}
-                <div className="grid grid-cols-1 gap-10 text-center sm:grid-cols-2 sm:text-left md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-10 text-center sm:grid-cols-2 sm:text-start md:grid-cols-3">
                     <div>
-                        <h3 className="mb-4 text-lg font-semibold">Company</h3>
+                        <h3 className="mb-4 text-lg font-semibold">{t('layout.projects')}</h3>
                         <ul className="space-y-2">
                             <li>
                                 <a href="#" className="hover:underline">
@@ -95,7 +97,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="mb-4 text-lg font-semibold">Support</h3>
+                        <h3 className="mb-4 text-lg font-semibold">{t('layout.services')}</h3>
                         <ul className="space-y-2">
                             <li>
                                 <a href="#" className="hover:underline">
@@ -104,18 +106,18 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a href="#" className="hover:underline">
-                                    Contact Us
+                                    {t('layout.contact_us')}
                                 </a>
                             </li>
                             <li>
                                 <a href="#" className="hover:underline">
-                                    Privacy Policy
+                                    {t('layout.privacy_policy')}
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h3 className="mb-4 text-lg font-semibold">Resources</h3>
+                        <h3 className="mb-4 text-lg font-semibold">{t('layout.support')}</h3>
                         <ul className="space-y-2">
                             <li>
                                 <a href="#" className="hover:underline">
@@ -137,7 +139,9 @@ const Footer = () => {
                 </div>
 
                 {/* Copyright */}
-                <div className="mt-10 text-center text-sm text-gray-400">&copy; {new Date().getFullYear()} Ayman. All rights reserved.</div>
+                <div className="mt-10 text-center text-sm text-gray-400">
+                    Ayman &copy; {new Date().getFullYear()} {t('layout.copyright')}
+                </div>
             </footer>
         </>
     );

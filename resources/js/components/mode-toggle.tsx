@@ -4,26 +4,26 @@ import { Monitor, Moon, Sun } from 'lucide-react';
 import { Appearance, useAppearance } from '../hooks/use-appearance'; // Import the hook
 
 const ThemeModeToggle = () => {
-    const { appearance, updateAppearance } = useAppearance();
+    const { updateAppearance } = useAppearance();
 
     const getLabel = (mode: Appearance) => {
         switch (mode) {
             case 'light':
                 return (
                     <>
-                        <Sun className="mr-2 h-[1.2rem] w-[1.2rem]" /> Light Mode
+                        <Sun className="mx-2 h-[1.2rem] w-[1.2rem]" />
                     </>
                 );
             case 'dark':
                 return (
                     <>
-                        <Moon className="mr-2 h-[1.2rem] w-[1.2rem]" /> Dark Mode
+                        <Moon className="mx-2 h-[1.2rem] w-[1.2rem]" />
                     </>
                 );
             case 'system':
                 return (
                     <>
-                        <Monitor className="mr-2 h-[1.2rem] w-[1.2rem]" /> System Mode
+                        <Monitor className="mx-2 h-[1.2rem] w-[1.2rem]" />
                     </>
                 );
             default:
@@ -40,7 +40,7 @@ const ThemeModeToggle = () => {
                     <span className="sr-only">Toggle theme</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className='flex'>
                 {(['light', 'dark', 'system'] as Appearance[]).map((mode) => (
                     <DropdownMenuItem key={mode} onClick={() => updateAppearance(mode)}>
                         {getLabel(mode)}

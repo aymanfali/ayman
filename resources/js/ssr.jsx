@@ -4,6 +4,7 @@ createInertiaApp
 } from '@inertiajs/react';
 import createServer from '@inertiajs/react/server';
 import ReactDOMServer from 'react-dom/server';
+import { LaravelReactI18nProvider } from 'laravel-react-i18n';
 
 createServer((page) =>
     createInertiaApp({

@@ -12,6 +12,7 @@ interface AppLayoutProps {
 export default function GuestLayout({ children }: AppLayoutProps) {
     const { auth } = usePage<SharedData>().props;
     const [isScrolled, setIsScrolled] = useState(false);
+    const { locale } = usePage().props as unknown as { locale: string };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,7 +25,7 @@ export default function GuestLayout({ children }: AppLayoutProps) {
 
     return (
         <>
-            <div className="mx-auto flex max-w-7xl flex-col items-center lg:justify-center">
+            <div dir={locale == 'ar' ? 'rtl' : 'ltr'} className="mx-auto flex max-w-7xl flex-col items-center lg:justify-center">
                 <header
                     className={`border-accent mb-6 w-full border-b p-2 text-sm transition-all duration-300 not-has-[nav]:hidden ${
                         isScrolled

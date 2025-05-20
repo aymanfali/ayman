@@ -4,6 +4,7 @@ import {
     defineConfig
 } from 'vite';
 import tailwindcss from "@tailwindcss/vite";
+import i18n from 'laravel-react-i18n/vite';
 
 export default defineConfig({
     plugins: [
@@ -14,6 +15,7 @@ export default defineConfig({
         }),
         react(),
         tailwindcss(),
+        i18n(),
     ],
     esbuild: {
         jsx: 'automatic',

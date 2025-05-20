@@ -1,6 +1,7 @@
 import GuestLayout from '@/layouts/guest-layout';
 import { Transition } from '@headlessui/react';
 import { useForm, usePage } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { Check } from 'lucide-react';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -24,6 +25,7 @@ interface Flash {
 export default function ContactUs() {
     const { flash } = usePage<{ flash: Flash }>().props;
     const [isScrolled, setIsScrolled] = useState(false);
+    const { t } = useLaravelReactI18n();
 
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm<ContactForm>({
         first_name: '',
@@ -57,15 +59,15 @@ export default function ContactUs() {
         <>
             <GuestLayout>
                 <div className={`${isScrolled ? `mt-32` : ''}`}>
-                    <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">Contact Us</h1>
-                    <p className="mb-6 text-center text-lg">Got an amazing idea to make it live?</p>
+                    <h1 className="mb-4 text-center text-4xl font-bold md:text-5xl">{t('contact_us.contact_us')}</h1>
+                    <p className="mb-6 text-center text-lg">{t('contact_us.contact_us_sub')}</p>
                     <form onSubmit={handleSubmit} className="mx-auto max-w-3xl rounded-xl p-4 shadow-md">
                         {/* Name Fields: Responsive Flex/Grid */}
                         <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
                             <Input
                                 name="first_name"
                                 type="text"
-                                placeholder="First Name"
+                                placeholder={t('contact_us.first_name')}
                                 className="w-full"
                                 value={data.first_name}
                                 onChange={(e) => setData('first_name', e.target.value)}
@@ -75,7 +77,7 @@ export default function ContactUs() {
                             <Input
                                 name="last_name"
                                 type="text"
-                                placeholder="Last Name"
+                                placeholder={t('contact_us.last_name')}
                                 className="w-full"
                                 value={data.last_name}
                                 onChange={(e) => setData('last_name', e.target.value)}
@@ -87,7 +89,7 @@ export default function ContactUs() {
                         <Input
                             name="email"
                             type="email"
-                            placeholder="Email"
+                            placeholder={t('contact_us.email')}
                             className="mb-4 w-full"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
@@ -98,7 +100,7 @@ export default function ContactUs() {
                         <Input
                             name="subject"
                             type="text"
-                            placeholder="Subject"
+                            placeholder={t('contact_us.subject')}
                             className="mb-4 w-full"
                             value={data.subject}
                             onChange={(e) => setData('subject', e.target.value)}
@@ -109,7 +111,7 @@ export default function ContactUs() {
                         <div className="mb-4">
                             <Textarea
                                 name="content"
-                                placeholder="Write your message"
+                                placeholder={t('contact_us.write')}
                                 className="min-h-[150px] w-full"
                                 value={data.content}
                                 onChange={(e) => setData('content', e.target.value)}
@@ -121,7 +123,7 @@ export default function ContactUs() {
                         {/* Submit Button */}
                         <div className="flex justify-end">
                             <Button type="submit" className="rounded-md px-6 py-2 transition" disabled={processing}>
-                                {processing ? 'Submitting ...' : 'Submit'}
+                                {processing ? t('contact_us.submitting') : t('contact_us.submit')}
                             </Button>
                             <Transition
                                 show={recentlySuccessful}
